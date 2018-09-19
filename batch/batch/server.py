@@ -256,7 +256,7 @@ def get_job(job_id):
 def get_job_log(job_id):
     if job_id > counter:
         abort(404)
-    
+
     job = job_id_job.get(job_id)
     if job:
         job_log = job._read_log()
@@ -351,7 +351,7 @@ def update_job_with_pod(job, pod):
             assert len(pod.status.container_statuses) == 1
             container_status = pod.status.container_statuses[0]
             assert container_status.name == 'default'
-            
+
             if container_status.state and container_status.state.terminated:
                 job.mark_complete(pod)
     else:
@@ -443,7 +443,7 @@ def polling_event_loop():
         try:
            r = requests.post('http://127.0.0.1:5000/refresh_k8s_state', timeout=120)
            r.raise_for_status()
-        except requests.HTTPError as e: 
+        except requests.HTTPError as e:
             log.error(f'Could not poll due to exception: {e}, text: {e.response.text}')
         except Exception as e:
             log.error(f'Could not poll due to exception: {e}')
